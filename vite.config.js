@@ -14,7 +14,8 @@ export default defineConfig({
     extensions: ['.vue', '.js', '.json', '.mjs']
   },
   server: {
-    host: '127.0.0.1',
+    host2: '127.0.0.1',
+    host: '192.168.1.103',
     port: 8080,
     // 是否自动在浏览器打开
     open: true,
