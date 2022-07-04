@@ -1,6 +1,17 @@
 import request from './index'
 const PATH = '/user'
 
+export function loginSelf(data) {
+  return request({
+    // url: `${thirdType}${PATH}/login`,
+    url: `/my/user/login`,
+    method: 'POST',
+    data: data
+  // }).catch((e) => {
+  //   console.log("loginSelf err ---", e)
+  })
+}
+
 export function login(data) {
   return request({
     url: `${PATH}/login`,
@@ -8,23 +19,25 @@ export function login(data) {
   })
 }
 
-export function logout() {
+export function logout(thirdType) {
   return request({
-    url: `${PATH}/logout`,
+    url: `${thirdType}${PATH}/logout`,
     method: 'get'
   })
 }
 
-export function getUserInfo() {
+export function getUserInfo(thirdType) {
   return request({
-    url: `${PATH}/getUserInfo`,
+    url: `${thirdType}${PATH}/getUserInfo`,
     method: 'get'
+  }).catch((e) => {
+      console.log("getUserInfo err ---", e)
   })
 }
 
-export function getAllUser() {
+export function getAllUser(thirdType) {
   return request({
-    url: `${PATH}/getAllUser`,
+    url: `${thirdType}${PATH}/getAllUser`,
     method: 'get'
   })
 }

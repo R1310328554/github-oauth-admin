@@ -18,7 +18,7 @@ service.interceptors.request.use(
   },
   error => {
     // do something with request error
-    console.log(error) // for debug
+    console.log("req onreject ", error) // for debug
     return Promise.reject(error)
   }
 )
@@ -27,6 +27,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   response => {
     const res = response.data
+    console.log('response interceptors', response) // for debug
 
     // if the custom code is not 20000, it is judged as an error.
     if (res.code !== 0) {
@@ -41,7 +42,7 @@ service.interceptors.response.use(
     }
   },
   error => {
-    console.log('err' + error) // for debug
+    console.log('err interceptors  ', error) // for debug
     Message({
       message: error.message,
       type: 'error',
@@ -50,5 +51,18 @@ service.interceptors.response.use(
     return Promise.reject(error)
   }
 )
+
+// 获取验证码
+export function getCodeImg() {
+  return service({
+    url: '/code',
+    headers: {
+      isToken: false
+    },
+    method: 'get',
+    timeout: 20000
+  })
+}
+
 
 export default service
