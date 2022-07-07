@@ -4,7 +4,8 @@ const PATH = '/user'
 export function loginSelf(data) {
   return request({
     // url: `${thirdType}${PATH}/login`,
-    url: `/my/user/login`,
+    // url: `oauth2/authorization/custom-client`,
+    url: `oauth2/authorization/custom-client`,
     method: 'POST',
     data: data
   // }).catch((e) => {

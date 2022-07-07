@@ -79,6 +79,8 @@ import {encrypt, decrypt} from '../api/jsencrypt'
 import Cookies from 'js-cookie'
 import ThirdPartyLogin from '../components/ThirdPartyLogin'
 
+import {postRequest} from "../api/api";
+
   export default {
     name: "Login",
     data() {
@@ -150,6 +152,21 @@ import ThirdPartyLogin from '../components/ThirdPartyLogin'
         };
       },
       handleLogin() {
+        // postRequest('http://192.168.1.103:8081/auth/login', this.loginForm).then(resp => {
+        postRequest('http://192.168.1.103:8082/oauth2/authorization/custom-client', this.loginForm).then(resp => {
+        // postRequest('/oauth2/authorization/custom-client', this.loginForm).then(resp => {
+        // postRequest('/auth/login', this.loginForm).then(resp => {
+          if (resp.data.code === 0) {
+            var pageUrl = window.location.href
+            var param = pageUrl.split('?')[1]
+            window.location.href = '/auth/oauth/authorize?'+param
+          } else {
+            console.log('登录失败：'+resp.data.msg)
+          }
+        })
+      },
+
+      handleLogin1() {
         this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true;

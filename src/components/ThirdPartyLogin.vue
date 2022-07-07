@@ -5,6 +5,7 @@
 <!--    <a href="https://www.baidu.com/" onclick="return true">去百度(禁止默认事件:return false)</a><br>-->
 
     <div><el-avatar shape="circle" :size="size" :src="iconGithub"></el-avatar><a :href="github_url" @click="thirdLogin('github/')">GITHUB</a></div>
+    <div><el-avatar shape="circle" :size="size" :src="iconWechat"></el-avatar><a :href="my_url"  @click="myLogin('my/')">my登录</a></div>
     <div><el-avatar shape="circle" :size="size" :src="iconWechat"></el-avatar><a :href="wechat_url"  @click="thirdLogin('wechat/')">微信登录</a></div>
     <div><el-avatar shape="circle" :size="size" :src="iconWeibo"></el-avatar><a :href="weibo_url"  @click="thirdLogin('weibo/')">微博登录</a></div>
     <div><el-avatar shape="circle" :size="size" :src="iconFacebook"></el-avatar><a :href="facebook_url"  onclick="thirdLogin('facebook/')">Facebook登录</a></div>
@@ -46,9 +47,9 @@ export default {
   data() {
     return {
       count: 0,
-      url: `${GITHUB_OAUTH.url}?client_id=${GITHUB_OAUTH.clientid}&redirect_uri=${GITHUB_OAUTH.redirectUri}&login=123&state=123456`,
-      github_url: `${GITHUB_OAUTH.url}?client_id=${GITHUB_OAUTH.clientid}&redirect_uri=${GITHUB_OAUTH.redirectUri}&state=123456`,
-      weibo_url: `https://api.weibo.com/oauth2/authorize?client_id=973886123&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.103%3A8999%2Fv1%2Fweibo%2Fuser%2Flogin`,
+      github_url: `http://192.168.1.103:8082/oauth2/authorization/github`,
+      weibo_url: `http://192.168.1.103:8082/oauth2/authorization/weibo`,
+      my_url: `http://192.168.1.103:8082/oauth2/authorization/custom-client`,
       wechat_url: `https://api.weibo.com/oauth2/authorize?client_id=973886123&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.103%3A8999%2FsecuredPage`,
       gmail_url: `https://api.weibo.com/oauth2/authorize?client_id=973886123&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.103%3A8999%2FsecuredPage`,
       facebook_url: `https://api.weibo.com/oauth2/authorize?client_id=973886123&response_type=code&redirect_uri=http%3A%2F%2F192.168.1.103%3A8999%2FsecuredPage`,
@@ -82,6 +83,10 @@ export default {
     thirdLogin(type = "weibo") {
       let thirdType = type;
       this.thirdType = thirdType;
+      return true;
+    },
+    myLogin(type = "weibo") {
+      this.thirdType = "my";
       return true;
     },
     async checkLogin() {
